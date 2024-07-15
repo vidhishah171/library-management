@@ -16,24 +16,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "books")
+@Document(collection = "departments")
 @Builder
-public class Book extends Auditable {
+public class Department extends Auditable {
 
-  private String title;
-
-  private String author;
-
-  @NotNull(message = "ISBN number must not be blank.")
+  @NotNull(message = "Department name must not be blank.")
   @Indexed(unique = true)
-  private String isbn;
+  private String name;
 
-  private String genre;
-
-  private int publicationYear;
-
-  @NotNull(message = "Department must not be blank.")
-  private String department;
-
-  private boolean availability;
+  private String description;
 }

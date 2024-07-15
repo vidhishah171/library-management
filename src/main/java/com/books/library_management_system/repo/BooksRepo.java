@@ -13,7 +13,7 @@ public interface BooksRepo extends MongoRepository<Book, String> {
 
   boolean existsByIsbn(@Param("isbn") String isbn);
 
-  boolean deleteByIsbn(@Param("isbn") String isbn);
+  void deleteByIsbn(@Param("isbn") String isbn);
 
   List<Book> findAllByTitleIgnoreCase(@Param("title") String title);
 

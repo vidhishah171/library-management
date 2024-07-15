@@ -15,17 +15,16 @@ public interface BooksService {
    * @throws BooksException
    */
   Book addBook(Book book) throws BooksException;
-
-  /**
-   * @author Vidhi_s Method to add new book by parameters.
-   * 
-   * @param author
-   * @param title
-   * @param publicationYear
-   * @return
-   * @throws BooksException
-   */
-  Book addBook(String author, String title, int publicationYear) throws BooksException;
+  // /**
+  // * @author Vidhi_s Method to add new book by parameters.
+  // *
+  // * @param author
+  // * @param title
+  // * @param publicationYear
+  // * @return
+  // * @throws BooksException
+  // */
+  // Book addBook(String author, String title, int publicationYear) throws BooksException;
 
   /**
    * @author Vidhi_s Method to get book by id.
@@ -34,7 +33,7 @@ public interface BooksService {
    * @return
    * @throws BooksException
    */
-  Book getBook(String id) throws BooksException;
+  Book getBookById(String id) throws BooksException;
 
   /**
    * @author Vidhi_s Method to update book by id.
@@ -53,7 +52,7 @@ public interface BooksService {
    * @return
    * @throws BooksException
    */
-  String deleteBook(String id) throws BooksException;
+  String deleteBookById(String id) throws BooksException;
 
   /**
    * @author Vidhi_s Method to fetch all the books.

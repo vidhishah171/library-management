@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -15,7 +16,6 @@ import com.books.library_management_system.exception.BooksException;
 import com.books.library_management_system.repo.BooksRepo;
 import com.books.library_management_system.service.BooksService;
 import com.books.library_management_system.util.LibraryUtil;
-import com.mongodb.DuplicateKeyException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,29 +44,7 @@ public class BooksServiceImpl implements BooksService {
   }
 
   @Override
-  public Book addBook(String author, String title, int publicationYear) throws BooksException {
-
-    // Assert.hasLength(author, "Book Author must not be null.");
-    // Assert.hasLength(title, "Book Title must not be null.");
-    // Assert.notNull(publicationYear, "Book publication year must not be null.");
-    // log.info(
-    // LibraryUtil.logFormat("Adding the book with title: {} to database.", new String[] {title}));
-    // BookBuilder booksBuilder = Book.builder()
-    // .author(author)
-    // .title(title)
-    // .publicationYear(publicationYear);
-    // try {
-    // Book book = booksBuilder.build();
-    // book = this.booksRepo.save(book);
-    // } catch(DuplicateKeyException e) {
-    // throw new BooksException("Book with ISBN " + book.getIsbn() + " already exists.");
-    //
-    // }
-    return null;
-  }
-
-  @Override
-  public Book getBook(String id) throws BooksException {
+  public Book getBookById(String id) throws BooksException {
 
     if (Objects.nonNull(id)) {
       log.info(LibraryUtil.logformat("Fetching the book with Id: {} from database."), id);
@@ -130,7 +108,7 @@ public class BooksServiceImpl implements BooksService {
   @Override
   public List<Book> listAllBooks() {
 
-    log.info(LibraryUtil.logFormat("Fetching all the books from database.", null));
+    log.info(LibraryUtil.logformat("Fetching all the books from database."));
     return this.booksRepo.findAll();
   }
 
@@ -138,7 +116,7 @@ public class BooksServiceImpl implements BooksService {
   public Book updateBook(String id, Book book) throws BooksException {
 
     try {
-      Book oldBook = this.getBook(id);
+      Book oldBook = this.getBookById(id);
       log.info(
           LibraryUtil.logFormat("Updating the book with Id: {} to database.", new String[] {id}));
       oldBook.setAuthor(book.getAuthor());
@@ -147,12 +125,12 @@ public class BooksServiceImpl implements BooksService {
       return this.booksRepo.save(oldBook);
     } catch (BooksException e) {
       throw new BooksException(
-          "Unable to update book with Id: " + id + "due to reason: " + e.getMessage());
+          "Unable to update book with Id: " + id + " due to reason: " + e.getMessage());
     }
   }
 
   @Override
-  public String deleteBook(String id) throws BooksException {
+  public String deleteBookById(String id) throws BooksException {
 
     if (Objects.nonNull(id)) {
       if (this.booksRepo.existsById(id)) {

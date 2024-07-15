@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +21,6 @@ import com.books.library_management_system.service.BooksService;
 import com.books.library_management_system.util.LibraryUtil;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/books")
@@ -39,27 +37,26 @@ public class BooksController {
     return LibraryUtil.buildSuccessResponse(this.booksService.addBook(bookObject),
         HttpStatus.CREATED);
   }
-
-  @PostMapping(value = "/add/by-parameters", produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<GenericResponse> addBookByParameters(@NotNull @RequestParam String title,
-      @NotNull @RequestParam String author, @NotNull @RequestParam int publicationYear)
-      throws BooksException {
-
-    return LibraryUtil.buildSuccessResponse(
-        this.booksService.addBook(author, title, publicationYear), HttpStatus.CREATED);
-  }
+  // @PostMapping(value = "/add/by-parameters", produces = MediaType.APPLICATION_JSON_VALUE)
+  // @ResponseStatus(HttpStatus.CREATED)
+  // public ResponseEntity<GenericResponse> addBookByParameters(@NotNull @RequestParam String title,
+  // @NotNull @RequestParam String author, @NotNull @RequestParam int publicationYear)
+  // throws BooksException {
+  //
+  // return LibraryUtil.buildSuccessResponse(
+  // this.booksService.addBook(author, title, publicationYear), HttpStatus.CREATED);
+  // }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GenericResponse> fetchBook(@PathVariable String id) throws BooksException {
+  public ResponseEntity<GenericResponse> fetchBookById(@PathVariable String id) throws BooksException {
 
-    return LibraryUtil.buildSuccessResponse(this.booksService.getBook(id), HttpStatus.OK);
+    return LibraryUtil.buildSuccessResponse(this.booksService.getBookById(id), HttpStatus.OK);
   }
 
   @ResponseStatus(HttpStatus.OK)
-  @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GenericResponse> fetchAllBooks() throws BooksException {
+  @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GenericResponse> listAllBooks() throws BooksException {
 
     return LibraryUtil.buildSuccessResponse(this.booksService.listAllBooks(), HttpStatus.OK);
   }
@@ -75,8 +72,41 @@ public class BooksController {
 
   @ResponseStatus(HttpStatus.OK)
   @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GenericResponse> deleteBook(@PathVariable String id) throws BooksException {
+  public ResponseEntity<GenericResponse> deleteBookById(@PathVariable String id) throws BooksException {
 
-    return LibraryUtil.buildSuccessResponse(this.booksService.deleteBook(id), HttpStatus.OK);
+    return LibraryUtil.buildSuccessResponse(this.booksService.deleteBookById(id), HttpStatus.OK);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @DeleteMapping(value = "remove/{isbn}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GenericResponse> removeBook(@PathVariable String isbn)
+      throws BooksException {
+
+    return LibraryUtil.buildSuccessResponse(this.booksService.removeBook(isbn), HttpStatus.OK);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @GetMapping(value = "/find/byTitle/{title}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GenericResponse> findBookByTitle(@PathVariable String title)
+      throws BooksException {
+
+    return LibraryUtil.buildSuccessResponse(this.booksService.findBookByTitle(title),
+        HttpStatus.OK);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @GetMapping(value = "/find/byAuthor/{author}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GenericResponse> findBookByAuthor(@PathVariable String author)
+      throws BooksException {
+
+    return LibraryUtil.buildSuccessResponse(this.booksService.findBookByAuthor(author),
+        HttpStatus.OK);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @GetMapping(value = "/list/available", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GenericResponse> listAvailableBooks() throws BooksException {
+
+    return LibraryUtil.buildSuccessResponse(this.booksService.listAvailableBooks(), HttpStatus.OK);
   }
 }
