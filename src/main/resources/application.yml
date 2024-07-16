@@ -1,0 +1,11 @@
+server:
+  servlet:
+    context-path: /library
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: library-management
+      auto-index-creation: true
