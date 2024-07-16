@@ -11,6 +11,13 @@ import com.books.library_management_system.bo.GenericResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 public class LibraryUtil {
 
   public static final String SUCESS = "Operation Performed Successfully.";

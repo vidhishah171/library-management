@@ -22,6 +22,13 @@ import com.books.library_management_system.util.LibraryUtil;
 
 import jakarta.validation.Valid;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 @RestController
 @RequestMapping("/books")
 public class BooksController {
@@ -37,19 +44,11 @@ public class BooksController {
     return LibraryUtil.buildSuccessResponse(this.booksService.addBook(bookObject),
         HttpStatus.CREATED);
   }
-  // @PostMapping(value = "/add/by-parameters", produces = MediaType.APPLICATION_JSON_VALUE)
-  // @ResponseStatus(HttpStatus.CREATED)
-  // public ResponseEntity<GenericResponse> addBookByParameters(@NotNull @RequestParam String title,
-  // @NotNull @RequestParam String author, @NotNull @RequestParam int publicationYear)
-  // throws BooksException {
-  //
-  // return LibraryUtil.buildSuccessResponse(
-  // this.booksService.addBook(author, title, publicationYear), HttpStatus.CREATED);
-  // }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GenericResponse> fetchBookById(@PathVariable String id) throws BooksException {
+  public ResponseEntity<GenericResponse> fetchBookById(@PathVariable String id)
+      throws BooksException {
 
     return LibraryUtil.buildSuccessResponse(this.booksService.getBookById(id), HttpStatus.OK);
   }
@@ -72,7 +71,8 @@ public class BooksController {
 
   @ResponseStatus(HttpStatus.OK)
   @DeleteMapping(value = "delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<GenericResponse> deleteBookById(@PathVariable String id) throws BooksException {
+  public ResponseEntity<GenericResponse> deleteBookById(@PathVariable String id)
+      throws BooksException {
 
     return LibraryUtil.buildSuccessResponse(this.booksService.deleteBookById(id), HttpStatus.OK);
   }

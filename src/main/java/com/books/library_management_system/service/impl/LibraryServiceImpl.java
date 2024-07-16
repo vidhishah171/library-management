@@ -10,6 +10,13 @@ import com.books.library_management_system.util.LibraryUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 @Service
 @Slf4j
 public class LibraryServiceImpl implements LibraryService {

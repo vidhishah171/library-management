@@ -5,6 +5,13 @@ import java.util.List;
 import com.books.library_management_system.entity.Department;
 import com.books.library_management_system.exception.DepartmentException;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 public interface DepartmentService {
 
   /**
@@ -15,17 +22,6 @@ public interface DepartmentService {
    * @throws DepartmentException
    */
   Department addDepartment(Department department) throws DepartmentException;
-  // /**
-  // * @author Vidhi_s Method to add new book by parameters.
-  // *
-  // * @param author
-  // * @param title
-  // * @param publicationYear
-  // * @return
-  // * @throws DepartmentException
-  // */
-  // Department addBook(String author, String title, int publicationYear) throws
-  // DepartmentException;
 
   /**
    * @author Vidhi_s Method to get department by id.
@@ -63,11 +59,20 @@ public interface DepartmentService {
   List<Department> listAllDepartments();
 
   /**
+   * @author Vidhi_s Method to remove department by department name.
+   * 
    * @param name
    * @return
    * @throws DepartmentException
    */
   String removeDepartment(String name) throws DepartmentException;
 
+  /**
+   * @author Vidhi_s Method to find department by name with ingore case.
+   * 
+   * @param name
+   * @return
+   * @throws DepartmentException
+   */
   List<Department> findDepartmentByName(String name) throws DepartmentException;
 }

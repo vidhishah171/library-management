@@ -26,6 +26,7 @@ import com.books.library_management_system.entity.Book;
 import com.books.library_management_system.exception.BookNotFoundException;
 import com.books.library_management_system.exception.BooksException;
 import com.books.library_management_system.repo.BooksRepo;
+import com.books.library_management_system.repo.DepartmentRepo;
 import com.books.library_management_system.service.impl.BooksServiceImpl;
 
 @ExtendWith(SpringExtension.class)
@@ -34,6 +35,9 @@ public class BooksServiceImplTest {
 
   @Mock
   private BooksRepo booksRepo;
+
+  @Mock
+  private DepartmentRepo departmentRepo;
 
   @InjectMocks
   private BooksServiceImpl booksService;
@@ -49,6 +53,7 @@ public class BooksServiceImplTest {
     book.setTitle("Test Book");
     book.setAuthor("Test Author");
     book.setIsbn("1234567890");
+    book.setDepartment("Science");
     book.setPublicationYear(2020);
     book.setAvailability(true);
   }
@@ -56,6 +61,7 @@ public class BooksServiceImplTest {
   @Test
   public void addBook_ShouldAddBook() throws BooksException {
 
+    when(departmentRepo.existsByName("Science")).thenReturn(true);
     when(booksRepo.save(any(Book.class))).thenReturn(book);
     Book addedBook = booksService.addBook(book);
     assertEquals("Test Book", addedBook.getTitle());

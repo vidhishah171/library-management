@@ -22,6 +22,13 @@ import com.books.library_management_system.util.LibraryUtil;
 
 import jakarta.validation.Valid;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 @RestController
 @RequestMapping("/department")
 public class DepartmentController {

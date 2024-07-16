@@ -11,7 +11,15 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.books.library_management_system.bo.GenericErrorResponse;
 import com.books.library_management_system.exception.BooksException;
+import com.books.library_management_system.exception.DepartmentException;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -58,7 +66,16 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(BooksException.class)
-  public ResponseEntity<GenericErrorResponse> handleBookNotFoundException(final BooksException ex) {
+  public ResponseEntity<GenericErrorResponse> handleBookException(final BooksException ex) {
+
+    return new ResponseEntity<>(
+        new GenericErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()),
+        HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @ExceptionHandler(DepartmentException.class)
+  public ResponseEntity<GenericErrorResponse> handleDepartmentException(
+      final DepartmentException ex) {
 
     return new ResponseEntity<>(
         new GenericErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage()),

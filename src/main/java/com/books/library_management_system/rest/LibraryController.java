@@ -14,6 +14,13 @@ import com.books.library_management_system.exception.DepartmentException;
 import com.books.library_management_system.service.LibraryService;
 import com.books.library_management_system.util.LibraryUtil;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 @RestController
 @RequestMapping("/")
 public class LibraryController {

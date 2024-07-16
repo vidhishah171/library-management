@@ -14,11 +14,20 @@ import com.books.library_management_system.entity.Book;
 import com.books.library_management_system.exception.BookNotFoundException;
 import com.books.library_management_system.exception.BooksException;
 import com.books.library_management_system.repo.BooksRepo;
+import com.books.library_management_system.repo.DepartmentRepo;
 import com.books.library_management_system.service.BooksService;
 import com.books.library_management_system.util.LibraryUtil;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Project library-management
+ * 
+ * @author Vidhi_s
+ * @version 1.0
+ * @date Jul 16, 2024
+ */
 @Service
 @Slf4j
 public class BooksServiceImpl implements BooksService {
@@ -26,13 +35,21 @@ public class BooksServiceImpl implements BooksService {
   @Autowired
   private BooksRepo booksRepo;
 
+  @Autowired
+  private DepartmentRepo departmentRepo;
+
   @Override
-  public Book addBook(Book book) throws BooksException {
+  public Book addBook(@Valid Book book) throws BooksException {
 
     if (Objects.nonNull(book)) {
       log.info(LibraryUtil.logFormat("Adding the book with title: {} to database.",
           new String[] {book.getTitle()}));
       try {
+        log.info(LibraryUtil.logformat("Checking if department with name: {} exist."),
+            book.getDepartment());
+        if (!this.departmentRepo.existsByName(book.getDepartment())) {
+          throw new BooksException("Department does not exist with Name: " + book.getDepartment());
+        }
         book = this.booksRepo.save(book);
       } catch (DuplicateKeyException e) {
         throw new BooksException("Book with ISBN " + book.getIsbn() + " already exists.");
@@ -122,6 +139,7 @@ public class BooksServiceImpl implements BooksService {
       oldBook.setAuthor(book.getAuthor());
       oldBook.setTitle(book.getTitle());
       oldBook.setPublicationYear(book.getPublicationYear());
+      oldBook.setAvailability(book.isAvailability());
       return this.booksRepo.save(oldBook);
     } catch (BooksException e) {
       throw new BooksException(

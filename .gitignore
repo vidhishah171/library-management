@@ -1,6 +1,7 @@
 HELP.md
 target/
 node-service/
+node-service-old/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
