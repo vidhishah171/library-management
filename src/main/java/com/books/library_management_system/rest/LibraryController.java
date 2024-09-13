@@ -4,11 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.books.library_management_system.bo.Email;
 import com.books.library_management_system.bo.GenericResponse;
 import com.books.library_management_system.exception.DepartmentException;
 import com.books.library_management_system.service.LibraryService;
@@ -23,6 +27,7 @@ import com.books.library_management_system.util.LibraryUtil;
  */
 @RestController
 @RequestMapping("/")
+@CrossOrigin
 public class LibraryController {
 
   @Autowired
@@ -33,5 +38,13 @@ public class LibraryController {
   public ResponseEntity<GenericResponse> getMenu() throws DepartmentException {
 
     return LibraryUtil.buildSuccessResponse(this.libraryService.getMenu(), HttpStatus.OK);
+  }
+
+  @ResponseStatus(HttpStatus.OK)
+  @PostMapping(value = "/email", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<GenericResponse> sendEmail(@RequestBody Email email)
+      throws DepartmentException {
+
+    return LibraryUtil.buildSuccessResponse(this.libraryService.sendEmail(email), HttpStatus.OK);
   }
 }

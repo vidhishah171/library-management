@@ -2,6 +2,8 @@ package com.books.library_management_system.service;
 
 import java.util.Map;
 
+import com.books.library_management_system.bo.Email;
+
 /**
  * Project library-management
  * 
@@ -17,4 +19,6 @@ public interface LibraryService {
    * @return
    */
   Map<String, String> getMenu();
+
+  Email sendEmail(Email email);
 }
